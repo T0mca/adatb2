@@ -52,7 +52,7 @@ CREATE TABLE customers(id NUMBER primary key,
 
 CREATE TABLE account(id NUMBER primary key,
                      customer_id NUMBER REFERENCES customers(id) ON DELETE CASCADE,
-                     balance NUMBER(15, 2) NOT NULL) tablespace users;
+                     balance NUMBER(15, 2) DEFAULT 0 NOT NULL) tablespace users;
 
 CREATE TABLE bank_card(id NUMBER primary key,
                        account_id NUMBER REFERENCES account(id) ON DELETE CASCADE,

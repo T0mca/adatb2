@@ -1,0 +1,52 @@
+CREATE OR REPLACE PACKAGE pkg_operations as
+ undefinied_account EXCEPTION;
+ pragma exception_init(undefinied_account, -20002);
+ 
+ PROCEDURE transfer(p_from_account_id NUMBER, p_to_account_id NUMBER);
+ 
+ FUNCTION check_pin(p_card_id NUMBER, p_pin_code NUMBER) RETURN NUMBER;
+ 
+END pkg_operations;
+/
+CREATE OR REPLACE PACKAGE BODY pkg_operations AS
+  PROCEDURE transfer(p_from_account_id NUMBER, p_to_account_id NUMBER) as
+    v_count NUMBER;
+    BEGIN
+      SELECT * FROM bank_card;
+    END transfer;
+    
+  FUNCTION check_pin(p_card_id NUMBER, p_pin_code NUMBER) RETURN NUMBER AS
+    v_key RAW(32) := UTL_RAW.cast_to_raw('12345678901234567890123456789012');
+    v_encrypted RAW(2000);
+    v_count NUMBER;
+    BEGIN
+      SELECT COUNT(*)
+      INTO v_count
+      FROM bank_card
+      WHERE id = p_card_id;
+
+      IF v_count = 0 THEN
+          RAISE undefinied_account;
+      END IF;
+      
+      SELECT hextoraw(pin)
+      INTO v_encrypted
+      FROM bank_card
+      WHERE id = p_card_id;
+
+      v_decrypted := UTL_RAW.cast_to_varchar2(
+          DBMS_CRYPTO.DECRYPT(
+              src => v_encrypted,
+              typ => DBMS_CRYPTO.ENCRYPT_AES + DBMS_CRYPTO.CHAIN_CBC + DBMS_CRYPTO.PAD_PKCS5,
+              key => v_key
+          )
+      );
+    
+    IF v_decrypted = p_pin_code THEN
+      RETURN 1;
+    ELSE
+      RETURN 0;
+    END IF;
+      
+    END check_pin;
+END pkg_operations;

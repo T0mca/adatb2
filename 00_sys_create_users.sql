@@ -7,7 +7,7 @@ SELECT sid, serial#, username, status
 FROM v$session
 WHERE status = 'ACTIVE' and username = 'BANK_MANAGER'
 
-ALTER SYSTEM KILL SESSION '5,2457';
+ALTER SYSTEM KILL SESSION '10,211';
 */
 
 DECLARE
@@ -31,6 +31,7 @@ grant CREATE VIEW TO bank_manager;
 grant CREATE SEQUENCE TO bank_manager;
 grant CREATE PROCEDURE TO bank_manager;
 grant CREATE TRIGGER TO bank_manager;
+GRANT EXECUTE ON DBMS_CRYPTO TO bank_manager;
 
 ALTER session SET current_schema = bank_manager;
 
@@ -56,7 +57,7 @@ CREATE TABLE account(id NUMBER primary key,
 
 CREATE TABLE bank_card(id NUMBER primary key,
                        account_id NUMBER REFERENCES account(id) ON DELETE CASCADE,
-                       pin_code NUMBER(4),
+                       pin_code VARCHAR2(32),
                        is_locked  NUMBER(1) DEFAULT 0) tablespace users;
 
 CREATE TABLE TRANSACTION(id NUMBER primary key,
