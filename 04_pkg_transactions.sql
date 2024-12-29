@@ -1,77 +1,83 @@
-CREATE OR REPLACE PACKAGE pkg_operations as
- undefinied_account EXCEPTION;
- pragma exception_init(undefinied_account, -20002);
- 
- insufficient_funds EXCEPTION;
- pragma exception_init(insufficient_funds,-20003);
- 
- PROCEDURE transfer(p_from_account_id NUMBER, p_to_account_id NUMBER, p_amount NUMBER);
- 
- FUNCTION check_pin(p_card_id NUMBER, p_pin_code NUMBER) RETURN NUMBER;
- 
+CREATE OR REPLACE PACKAGE pkg_operations AS
+  undefinied_account EXCEPTION;
+  PRAGMA EXCEPTION_INIT(undefinied_account, -20002);
+
+  insufficient_funds EXCEPTION;
+  PRAGMA EXCEPTION_INIT(insufficient_funds, -20003);
+
+  card_locked_or_not_found EXCEPTION;
+  PRAGMA EXCEPTION_INIT(card_locked_or_not_found, -20004);
+
+  PROCEDURE transfer(p_from_account_id NUMBER
+                    ,p_to_account_id   NUMBER
+                    ,p_amount          NUMBER);
+
+  PROCEDURE use_atm(p_card_id NUMBER
+                   ,p_amount  NUMBER);
+
+  FUNCTION check_pin(p_card_id  NUMBER
+                    ,p_pin_code NUMBER) RETURN NUMBER;
+
 END pkg_operations;
 /
 CREATE OR REPLACE PACKAGE BODY pkg_operations AS
 
-  PROCEDURE transfer(p_from_account_id NUMBER, p_to_account_id NUMBER, p_amount NUMBER) AS
-    v_balance NUMBER;
-  BEGIN
-    SELECT balance
-    INTO v_balance
-    FROM account
-    WHERE id = p_from_account_id;
+PROCEDURE transfer(p_from_account_id NUMBER, p_to_account_id NUMBER, p_amount NUMBER) AS
+v_balance NUMBER;
+BEGIN
+SELECT balance INTO v_balance FROM account WHERE id = p_from_account_id;
 
-    IF v_balance < p_amount THEN
-      RAISE insufficient_funds;
-    END IF;
+IF v_balance < p_amount THEN RAISE insufficient_funds;
+END IF;
 
-    UPDATE account
-    SET balance = balance - p_amount
-    WHERE id = p_from_account_id;
+UPDATE account SET balance = balance - p_amount WHERE id = p_from_account_id;
 
-    UPDATE account
-    SET balance = balance + p_amount
-    WHERE id = p_to_account_id;
-    
-    INSERT INTO transaction (source_account,target_account,amount)
-    VALUES (p_from_account_id,p_to_account_id,p_amount);
+UPDATE account SET balance = balance + p_amount WHERE id = p_to_account_id;
 
-    COMMIT;
-  END transfer;
+INSERT INTO TRANSACTION(source_account, target_account, amount) VALUES(p_from_account_id, p_to_account_id, p_amount);
 
-  FUNCTION check_pin(p_card_id NUMBER, p_pin_code NUMBER) RETURN NUMBER AS
-    v_key RAW(32) := UTL_RAW.cast_to_raw('12345678901234567890123456789012'); -- 32 byte kulcs
-    v_encrypted RAW(2000);
-    v_decrypted VARCHAR2(10);
-    v_count NUMBER;
-  BEGIN
-    SELECT COUNT(*)
-    INTO v_count
-    FROM bank_card
-    WHERE id = p_card_id;
+COMMIT;
+END transfer;
 
-    IF v_count = 0 THEN
-        RAISE undefinied_account;
-    END IF;
+PROCEDURE use_atm(p_card_id NUMBER, p_amount NUMBER) AS
+v_count NUMBER; v_account_id NUMBER;
+BEGIN
+SELECT COUNT(*) INTO v_count FROM bank_card WHERE id = p_card_id;
 
-    SELECT hextoraw(pin_code)
-    INTO v_encrypted
-    FROM bank_card
-    WHERE id = p_card_id;
+IF v_count = 0 THEN RAISE undefinied_account;
+END IF;
 
-    v_decrypted := UTL_RAW.cast_to_varchar2(
-        DBMS_CRYPTO.DECRYPT(
-            src => v_encrypted,
-            typ => DBMS_CRYPTO.ENCRYPT_AES + DBMS_CRYPTO.CHAIN_CBC + DBMS_CRYPTO.PAD_PKCS5,
-            key => v_key
-        )
-    );
-    
-    IF TO_NUMBER(v_decrypted) = p_pin_code THEN
-      RETURN 1;
-    ELSE
-      RETURN 0;
-    END IF;
-  END check_pin;
+SELECT b.account_id INTO v_account_id FROM bank_card b WHERE b.id = p_card_id AND b.is_locked = 0;
+
+IF v_account_id IS
+NULL THEN RAISE card_locked_or_not_found;
+END IF;
+
+IF p_amount < 0 THEN UPDATE account SET balance = balance + p_amount WHERE id = v_account_id;
+
+INSERT INTO TRANSACTION(source_account, target_account, amount) VALUES(v_account_id, NULL, p_amount);
+
+ELSIF p_amount > 0 THEN UPDATE account SET balance = balance + p_amount WHERE id = v_account_id;
+
+INSERT INTO TRANSACTION(source_account, target_account, amount) VALUES(NULL, v_account_id, p_amount);
+END IF;
+
+END use_atm;
+
+FUNCTION check_pin(p_card_id NUMBER, p_pin_code NUMBER) RETURN NUMBER AS
+v_key RAW(32) := utl_raw.cast_to_raw('12345678901234567890123456789012'); v_encrypted RAW(2000); v_decrypted VARCHAR2(10); v_count NUMBER;
+BEGIN
+SELECT COUNT(*) INTO v_count FROM bank_card WHERE id = p_card_id;
+
+IF v_count = 0 THEN RAISE undefinied_account;
+END IF;
+
+SELECT hextoraw(pin_code) INTO v_encrypted FROM bank_card WHERE id = p_card_id;
+
+v_decrypted := utl_raw.cast_to_varchar2(dbms_crypto.decrypt(src => v_encrypted, typ => dbms_crypto.encrypt_aes + dbms_crypto.chain_cbc + dbms_crypto.pad_pkcs5, key => v_key));
+
+IF to_number(v_decrypted) = p_pin_code THEN RETURN 1; ELSE RETURN 0;
+END IF;
+END check_pin;
 
 END pkg_operations;

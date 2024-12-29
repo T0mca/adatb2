@@ -7,7 +7,7 @@ SELECT sid, serial#, username, status
 FROM v$session
 WHERE status = 'ACTIVE' and username = 'BANK_MANAGER'
 
-ALTER SYSTEM KILL SESSION '10,211';
+ALTER SYSTEM KILL SESSION '138,5499';
 */
 
 DECLARE
@@ -22,16 +22,16 @@ BEGIN
     EXECUTE IMMEDIATE 'DROP USER bank_manager CASCADE';
   END IF;
 END;
-/ 
+/
 CREATE USER bank_manager identified BY 12345678 DEFAULT tablespace users quota unlimited ON users;
 
 grant CREATE session TO bank_manager;
 grant CREATE TABLE TO bank_manager;
-grant CREATE VIEW TO bank_manager;
-grant CREATE SEQUENCE TO bank_manager;
+grant CREATE view TO bank_manager;
+grant CREATE sequence TO bank_manager;
 grant CREATE PROCEDURE TO bank_manager;
 grant CREATE TRIGGER TO bank_manager;
-GRANT EXECUTE ON DBMS_CRYPTO TO bank_manager;
+grant EXECUTE ON dbms_crypto TO bank_manager;
 
 ALTER session SET current_schema = bank_manager;
 
@@ -52,17 +52,25 @@ CREATE TABLE customers(id NUMBER primary key,
                          email VARCHAR2(100)) tablespace users;
 
 CREATE TABLE account(id NUMBER primary key,
-                     customer_id NUMBER REFERENCES customers(id) ON DELETE CASCADE,
-                     balance NUMBER(15, 2) DEFAULT 0 NOT NULL) tablespace users;
+                     customer_id NUMBER references customers(id) ON DELETE
+                     cascade,
+                     balance     NUMBER(15, 2) DEFAULT 0 NOT NULL) tablespace users;
 
 CREATE TABLE bank_card(id NUMBER primary key,
-                       account_id NUMBER REFERENCES account(id) ON DELETE CASCADE,
+                       account_id NUMBER references account(id) ON DELETE
+                       cascade,
                        pin_code VARCHAR2(32),
                        is_locked  NUMBER(1) DEFAULT 0) tablespace users;
 
 CREATE TABLE TRANSACTION(id NUMBER primary key,
-                         source_account NUMBER references account(id) ON DELETE CASCADE,
-                         target_account NUMBER references account(id) ON DELETE CASCADE,
+                         source_account NUMBER references account(id) ON
+                         DELETE cascade,
+                         target_account NUMBER references account(id) ON
+                         DELETE cascade,
                          amount NUMBER(15, 2) NOT NULL) tablespace users;
-                         
 
+CREATE TABLE changelog(id NUMBER primary key,
+                       table_name VARCHAR2(50) NOT NULL,
+                       operation VARCHAR2(10) NOT NULL,
+                       record_id NUMBER NOT NULL,
+                       change_date DATE DEFAULT SYSDATE NOT NULL);

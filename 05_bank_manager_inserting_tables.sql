@@ -28,24 +28,28 @@ BEGIN
 END;
 /
 COMMIT;
-/
 
--- SELECT * FROM USER_ERRORS WHERE NAME = 'PKG_MANAGE_BANK';
 -- COMMIT;
 -- SELECT * FROM customers;
 -- SELECT * FROM account FOR UPDATE;
 -- SELECT * FROM bank_card WHERE account_id = 1000;
 -- SELECT * FROM transaction;
+-- SELECT * FROM changelog;
 
 declare
 pin_code NUMBER;
 begin
-pkg_manage_bank.addCardToAccount(p_account_id => 1063,p_generated_pin => pin_code);
-dbms_output.put_line('A generalt pin code: ' || pin_code);
-
+  FOR i IN 1000..1020 LOOP
+    pkg_manage_bank.addCardToAccount(p_account_id => i,p_generated_pin => pin_code);
+    dbms_output.put_line('A generalt pin code: ' || pin_code);
+    pkg_operations.use_atm(bank_card_seq.currval,100000);
+    pkg_operations.use_atm(bank_card_seq.currval,-1 * DBMS_RANDOM.VALUE(1000, 30000) );
+  END LOOP;
 end;
 
+/
 begin
-  pkg_operations.transfer(1063,1064,99999999);
+  pkg_operations.transfer(1000,1001,100);
+  pkg_operations.transfer(1002,1001,200);
 end;
 
