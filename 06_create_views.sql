@@ -27,11 +27,7 @@ SELECT
     t.id AS transaction_id,
     t.source_account,
     t.target_account,
-    CASE 
-        WHEN t.source_account = a.id THEN -t.amount
-        WHEN t.target_account = a.id THEN t.amount
-        ELSE 0
-    END AS transaction_amount
+    t.amount
 FROM
     account a
 LEFT JOIN
