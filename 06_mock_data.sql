@@ -1,0 +1,396 @@
+DELETE FROM customers;
+DELETE FROM account;
+DELETE FROM bank_card;
+
+BEGIN
+  pkg_manage_bank.create_customer('Kovács',
+                                  'István',
+                                  '06201234589',
+                                  'kovacs.istvan@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Eszter',
+                                  '06201234590',
+                                  'nagy.eszter@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Tamás',
+                                  '06201234591',
+                                  'kiss.tamas@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Mária',
+                                  '06201234592',
+                                  'toth.maria@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Bence',
+                                  '06201234593',
+                                  'farkas.bence@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'Nóra',
+                                  '06201234594',
+                                  'szabo.nora@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'Péter',
+                                  '06201234595',
+                                  'varga.peter@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Júlia',
+                                  '06201234596',
+                                  'horvath.julia@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Attila',
+                                  '06201234597',
+                                  'balogh.attila@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Zsuzsa',
+                                  '06201234598',
+                                  'molnar.zsuzsa@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Krisztina',
+                                  '06201234599',
+                                  'papp.krisztina@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Dávid',
+                                  '06201234600',
+                                  'kovacs.david@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Gabriella',
+                                  '06201234601',
+                                  'nagy.gabriella@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Balázs',
+                                  '06201234602',
+                                  'kiss.balazs@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Hanna',
+                                  '06201234603',
+                                  'toth.hanna@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Lóránt',
+                                  '06201234604',
+                                  'farkas.lorant@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'Boglárka',
+                                  '06201234605',
+                                  'szabo.boglarka@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'Géza',
+                                  '06201234606',
+                                  'varga.geza@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Katalin',
+                                  '06201234607',
+                                  'horvath.katalin@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Miklós',
+                                  '06201234608',
+                                  'balogh.miklos@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'József',
+                                  '06201234609',
+                                  'molnar.jozsef@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Zsófia',
+                                  '06201234610',
+                                  'papp.zsofia@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Emese',
+                                  '06201234611',
+                                  'kovacs.emese@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Krisztián',
+                                  '06201234612',
+                                  'nagy.krisztian@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Rita',
+                                  '06201234613',
+                                  'kiss.rita@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Gergely',
+                                  '06201234614',
+                                  'toth.gergely@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Laura',
+                                  '06201234615',
+                                  'farkas.laura@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'János',
+                                  '06201234616',
+                                  'szabo.janos@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'Csilla',
+                                  '06201234617',
+                                  'varga.csilla@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Máté',
+                                  '06201234618',
+                                  'horvath.mate@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Vivien',
+                                  '06201234619',
+                                  'balogh.vivien@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Erik',
+                                  '06201234620',
+                                  'molnar.erik@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'László',
+                                  '06201234621',
+                                  'papp.laszlo@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Petra',
+                                  '06201234622',
+                                  'kovacs.petra@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Levente',
+                                  '06201234623',
+                                  'nagy.levente@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Adrienn',
+                                  '06201234624',
+                                  'kiss.adrienn@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Attila',
+                                  '06201234625',
+                                  'toth.attila@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Orsolya',
+                                  '06201234626',
+                                  'farkas.orsolya@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'Kristóf',
+                                  '06201234627',
+                                  'szabo.kristof@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'Szilvia',
+                                  '06201234628',
+                                  'varga.szilvia@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Rebeka',
+                                  '06201234629',
+                                  'horvath.rebeka@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Zsolt',
+                                  '06201234630',
+                                  'balogh.zsolt@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Gábor',
+                                  '06201234631',
+                                  'molnar.gabor@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Boglárka',
+                                  '06201234632',
+                                  'papp.boglarka@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Veronika',
+                                  '06201234633',
+                                  'kovacs.veronika@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Tímea',
+                                  '06201234634',
+                                  'nagy.timea@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Géza',
+                                  '06201234635',
+                                  'kiss.geza@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'András',
+                                  '06201234636',
+                                  'toth.andras@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Judit',
+                                  '06201234637',
+                                  'farkas.judit@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'István',
+                                  '06201234638',
+                                  'szabo.istvan@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'Orsolya',
+                                  '06201234639',
+                                  'varga.orsolya@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Dániel',
+                                  '06201234640',
+                                  'horvath.daniel@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Emõke',
+                                  '06201234641',
+                                  'balogh.emoke@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Tamara',
+                                  '06201234642',
+                                  'molnar.tamara@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Levente',
+                                  '06201234643',
+                                  'papp.levente@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Andrea',
+                                  '06201234644',
+                                  'kovacs.andrea@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Miklós',
+                                  '06201234645',
+                                  'nagy.miklos@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Edit',
+                                  '06201234646',
+                                  'kiss.edit@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Erika',
+                                  '06201234647',
+                                  'toth.erika@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Réka',
+                                  '06201234648',
+                                  'farkas.reka@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'Mátyás',
+                                  '06201234649',
+                                  'szabo.matyas@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'József',
+                                  '06201234650',
+                                  'varga.jozsef@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Krisztina',
+                                  '06201234651',
+                                  'horvath.krisztina@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Eszter',
+                                  '06201234652',
+                                  'balogh.eszter@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Gergely',
+                                  '06201234653',
+                                  'molnar.gergely@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Tamás',
+                                  '06201234654',
+                                  'papp.tamas@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Dániel',
+                                  '06201234655',
+                                  'kovacs.daniel@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Béla',
+                                  '06201234656',
+                                  'nagy.bela@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Zsuzsanna',
+                                  '06201234657',
+                                  'kiss.zsuzsanna@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Viktor',
+                                  '06201234658',
+                                  'toth.viktor@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Katalin',
+                                  '06201234659',
+                                  'farkas.katalin@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'Hajnalka',
+                                  '06201234660',
+                                  'szabo.hajnalka@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'László',
+                                  '06201234661',
+                                  'varga.laszlo@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Eszter',
+                                  '06201234662',
+                                  'horvath.eszter@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Hanna',
+                                  '06201234663',
+                                  'balogh.hanna@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Attila',
+                                  '06201234664',
+                                  'molnar.attila@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Gábor',
+                                  '06201234665',
+                                  'papp.gabor@gmail.com');
+  pkg_manage_bank.create_customer('Kovács',
+                                  'Ivett',
+                                  '06201234666',
+                                  'kovacs.ivett@gmail.com');
+  pkg_manage_bank.create_customer('Nagy',
+                                  'Péter',
+                                  '06201234667',
+                                  'nagy.peter@gmail.com');
+  pkg_manage_bank.create_customer('Kiss',
+                                  'Alexandra',
+                                  '06201234668',
+                                  'kiss.alexandra@gmail.com');
+  pkg_manage_bank.create_customer('Tóth',
+                                  'Gabriella',
+                                  '06201234669',
+                                  'toth.gabriella@gmail.com');
+  pkg_manage_bank.create_customer('Farkas',
+                                  'Csaba',
+                                  '06201234670',
+                                  'farkas.csaba@gmail.com');
+  pkg_manage_bank.create_customer('Szabó',
+                                  'Mária',
+                                  '06201234671',
+                                  'szabo.maria@gmail.com');
+  pkg_manage_bank.create_customer('Varga',
+                                  'Levente',
+                                  '06201234672',
+                                  'varga.levente@gmail.com');
+  pkg_manage_bank.create_customer('Horváth',
+                                  'Orsolya',
+                                  '06201234673',
+                                  'horvath.orsolya@gmail.com');
+  pkg_manage_bank.create_customer('Balogh',
+                                  'Géza',
+                                  '06201234674',
+                                  'balogh.geza@gmail.com');
+  pkg_manage_bank.create_customer('Molnár',
+                                  'Katalin',
+                                  '06201234675',
+                                  'molnar.katalin@gmail.com');
+  pkg_manage_bank.create_customer('Papp',
+                                  'Kristóf',
+                                  '06201234676',
+                                  'papp.kristof@gmail.com');
+END;
+
+/
+COMMIT;
+
+-- COMMIT;
+-- SELECT * FROM customers;
+-- SELECT * FROM account FOR UPDATE;
+-- SELECT * FROM bank_card;
+-- SELECT * FROM transaction ORDER BY id DESC;
+-- SELECT * FROM changelog;
+
+
+declare
+pin_code NUMBER;
+begin
+  FOR i IN (SELECT a.id FROM account a) LOOP
+    pkg_manage_bank.addcardtoaccount(p_account_id => i.id,p_generated_pin => pin_code);
+    dbms_output.put_line('Kartya id: ' || bank_card_seq.currval || ', generalt pin code: ' || pin_code);
+  END LOOP;
+end;
+/
+begin
+  for i in (SELECT b.id FROM bank_card b) LOOP
+    pkg_operations.use_atm( i.id,100000 + DBMS_RANDOM.VALUE(-10000, 10000) );
+  END LOOP;
+end;
+/
+
+begin
+  for i in (SELECT a.id FROM account a) LOOP
+    for j in (SELECT a.id FROM account a WHERE a.id > i.id) LOOP
+      pkg_operations.transfer(i.id,j.id,DBMS_RANDOM.VALUE(100, 1000));
+    END LOOP;
+  END LOOP;
+end;
+
+
+
