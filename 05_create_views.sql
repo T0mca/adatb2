@@ -80,5 +80,33 @@ SELECT * FROM vw_inactive_customers;
 
 */
 
+-- CHANGELOG VIEWS
+
+CREATE OR REPLACE VIEW customers_changelog AS
+SELECT c.id, c.operation, c.record_id, c.change_date, c.change_by, c.version
+FROM changelog c
+WHERE c.table_name = 'customers';
+/
+-- SELECT * FROM customers_changelog
+
+CREATE OR REPLACE VIEW account_changelog AS
+SELECT c.id, c.operation, c.record_id, c.change_date, c.change_by, c.version
+FROM changelog c
+WHERE c.table_name = 'account';
+/
+-- SELECT * FROM account_changelog
+
+CREATE OR REPLACE VIEW bank_card_changelog AS
+SELECT c.id, c.operation, c.record_id, c.change_date, c.change_by, c.version
+FROM changelog c
+WHERE c.table_name = 'bank_card';
+/
+-- SELECT * FROM bank_card_changelog
+
+
+
+
+
+
 
 

@@ -80,3 +80,24 @@ BEGIN
     :NEW.id := changelog_seq.NEXTVAL;
   END IF;
 END;
+/
+CREATE OR REPLACE TRIGGER customers_version_trg
+  BEFORE UPDATE ON customers
+  FOR EACH ROW
+BEGIN
+  :new.version := :old.version + 1;
+END;
+/
+CREATE OR REPLACE TRIGGER account_version_trg
+  BEFORE UPDATE ON account
+  FOR EACH ROW
+BEGIN
+  :new.version := :old.version + 1;
+END;
+/
+CREATE OR REPLACE TRIGGER bank_card_version_trg
+  BEFORE UPDATE ON bank_card
+  FOR EACH ROW
+BEGIN
+  :new.version := :old.version + 1;
+END;

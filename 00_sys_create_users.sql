@@ -49,18 +49,21 @@ CREATE TABLE customers(id NUMBER primary key,
                          firstname VARCHAR2(50) NOT NULL,
                          lastname VARCHAR2(50) NOT NULL,
                          phone VARCHAR2(15),
-                         email VARCHAR2(100)) tablespace users;
+                         email VARCHAR2(100),
+                         version NUMBER DEFAULT 1 NOT NULL) tablespace users;
 
 CREATE TABLE account(id NUMBER primary key,
                      customer_id NUMBER references customers(id) ON DELETE
                      cascade,
-                     balance     NUMBER(15, 2) DEFAULT 0 NOT NULL) tablespace users;
+                     balance     NUMBER(15, 2) DEFAULT 0 NOT NULL,
+                     version NUMBER DEFAULT 1 NOT NULL) tablespace users;
 
 CREATE TABLE bank_card(id NUMBER primary key,
                        account_id NUMBER references account(id) ON DELETE
                        cascade,
                        pin_code VARCHAR2(32),
-                       is_locked  NUMBER(1) DEFAULT 0) tablespace users;
+                       is_locked  NUMBER(1) DEFAULT 0,
+                       version NUMBER DEFAULT 1 NOT NULL) tablespace users;
 
 CREATE TABLE TRANSACTION(id NUMBER primary key,
                          source_account NUMBER references account(id) ON
@@ -73,4 +76,7 @@ CREATE TABLE changelog(id NUMBER primary key,
                        table_name VARCHAR2(50) NOT NULL,
                        operation VARCHAR2(10) NOT NULL,
                        record_id NUMBER NOT NULL,
-                       change_date DATE DEFAULT SYSDATE NOT NULL);
+                       change_date DATE DEFAULT SYSDATE NOT NULL,
+                       change_by VARCHAR(50) NOT NULL,
+                       version NUMBER NOT NULL
+                       );

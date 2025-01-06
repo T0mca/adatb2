@@ -8,36 +8,48 @@ BEGIN
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('customers'
       ,'INSERT'
       ,:new.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,1);
   ELSIF updating
   THEN
     INSERT INTO changelog
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('customers'
       ,'UPDATE'
       ,:old.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,:OLD.version);
   ELSIF deleting
   THEN
     INSERT INTO changelog
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('customers'
       ,'DELETE'
       ,:old.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,:OLD.version);
   END IF;
 END;
 /
@@ -52,36 +64,48 @@ BEGIN
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('account'
       ,'INSERT'
       ,:new.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,1);
   ELSIF updating
   THEN
     INSERT INTO changelog
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('account'
       ,'UPDATE'
       ,:old.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,:OLD.version);
   ELSIF deleting
   THEN
     INSERT INTO changelog
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('account'
       ,'DELETE'
       ,:old.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,:OLD.version);
   END IF;
 END;
 /
@@ -96,36 +120,48 @@ BEGIN
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('bank_card'
       ,'INSERT'
       ,:new.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,1);
   ELSIF updating
   THEN
     INSERT INTO changelog
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('bank_card'
       ,'UPDATE'
       ,:old.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,:OLD.version);
   ELSIF deleting
   THEN
     INSERT INTO changelog
       (table_name
       ,operation
       ,record_id
-      ,change_date)
+      ,change_date
+      ,change_by
+      ,version)
     VALUES
       ('bank_card'
       ,'DELETE'
       ,:old.id
-      ,SYSDATE);
+      ,SYSDATE
+      ,USER
+      ,:OLD.version);
   END IF;
 END;
 /
